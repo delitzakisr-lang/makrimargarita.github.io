@@ -1,0 +1,15 @@
+{
+  "meta_title": "Privacy policy | Margarita Makri",
+  "meta_description": "How this website handles your details and which third-party services it uses.",
+  "title": "Privacy policy",
+  "lead": "This website collects as little data as possible. It uses no cookies and no analytics.",
+  "intro": "[This is a draft and should be reviewed by a legal adviser before publication.]",
+  "sections": [
+    { "title": "Data controller", "body": "Margarita Makri, Psychologist - Psychotherapist, Asklipiou 28, Larissa, Greece, makrimarg@hotmail.com, tel. +30 241 181 1451." },
+    { "title": "Contact form", "body": "When you send a message through the form, your name, email, phone (if given) and message are passed through the Web3Forms service to the controller's email. They are used only to reply to you, based on your consent.\n\nPlease do not include sensitive health information in the form. [How long messages are kept.]" },
+    { "title": "Map", "body": "The Google Maps map does not load automatically. It loads only if you press “Show map”, in which case Google may process data such as your IP address under its own privacy policy." },
+    { "title": "Fonts and hosting", "body": "Fonts are served by Bunny Fonts, which operates in the European Union and does not log visitor data. The website is hosted on GitHub Pages, which processes technical data (such as your IP address) to deliver the pages securely." },
+    { "title": "Cookies", "body": "This website uses no cookies, analytics or advertising tools." },
+    { "title": "Your rights", "body": "You have the right to access, correct, erase and restrict the processing of your data, to object to it, and to lodge a complaint with the [Hellenic Data Protection Authority](https://www.dpa.gr). For any request, write to makrimarg@hotmail.com." }
+  ]
+}

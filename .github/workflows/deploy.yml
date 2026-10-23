@@ -1,0 +1,53 @@
+# Rebuilds and publishes the site on GitHub Pages after every change
+# (including every save from Pages CMS).
+name: Publish site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        shell: pwsh
+        run: ./build.ps1
+      # Photos straight from a phone are often 4-8 MB. Only the published copies are shrunk;
+      # the originals stay untouched in the repository. If this step fails the site still publishes.
+      - name: Shrink uploaded photos
+        continue-on-error: true
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq imagemagick > /dev/null
+          shopt -s nullglob nocaseglob
+          for f in dist/assets/img/uploads/*.{jpg,jpeg,png,webp}; do
+            before=$(stat -c %s "$f")
+            mogrify -auto-orient -resize '1600x1600>' -strip -quality 82 "$f"
+            echo "$f: $before -> $(stat -c %s "$f") bytes"
+          done
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

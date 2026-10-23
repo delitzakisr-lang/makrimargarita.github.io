@@ -1,0 +1,38 @@
+{
+  "meta_title": "Frequently asked questions | Margarita Makri, Psychologist",
+  "meta_description": "Answers about psychotherapy, CBT, duration, confidentiality and the practical side of sessions.",
+  "title": "Frequently asked questions",
+  "lead": "This information is general and does not replace an individual assessment.",
+  "groups": [
+    {
+      "title": "About psychotherapy",
+      "items": [
+        { "q": "How do I know I need psychotherapy?", "home": true, "a": "You do not need a “serious problem” to see a psychologist. If something has troubled you for a while, affects your mood, sleep, relationships or work, or you simply want to understand yourself better, a first meeting can help." },
+        { "q": "How is psychotherapy different from talking to a friend?", "home": false, "a": "Psychotherapy is a professional, confidential and structured process with a clear framework and goals. The therapist is trained to understand difficulties and suggest evidence-based ways of dealing with them, without judging you." },
+        { "q": "Will I need medication?", "home": false, "a": "Psychologists do not prescribe medication. The need for medication is assessed by a psychiatrist, and when needed we work together, always with your consent." },
+        { "q": "What if I do not feel I am a good fit with the therapist?", "home": false, "a": "A good therapeutic relationship matters. You can talk about it openly, and if needed, I will recommend another professional." }
+      ]
+    },
+    {
+      "title": "About CBT",
+      "items": [
+        { "q": "What is CBT?", "home": false, "a": "It is a structured psychotherapy that focuses on the links between thoughts, feelings and behaviour, and gives practical tools for difficulties such as anxiety and depression. [More about the approach](/en/approach/)." },
+        { "q": "Which difficulties can it help with?", "home": false, "a": "Research support is particularly strong for anxiety disorders and good for depression. It is also used for stress, sleep and other issues. Whether it suits you is assessed individually." },
+        { "q": "When will I see results?", "home": false, "a": "There is no timeframe that fits everyone. Some people notice small changes in the first weeks, especially when they practise between sessions. Others need longer. We track progress together." },
+        { "q": "How many sessions are needed?", "home": false, "a": "It depends on the difficulty and your goals. According to the UK's NHS, a course of CBT usually lasts between 5 and 20 sessions, but the number is tailored to each person and decided together." },
+        { "q": "Will I have “homework”?", "home": false, "a": "Usually yes, in the form of small exercises or observations between sessions. That is where new skills are put into practice, and they are always adapted to your time." }
+      ]
+    },
+    {
+      "title": "About sessions",
+      "items": [
+        { "q": "What is the first session like?", "home": true, "a": "It is an introduction. We talk about what brings you, your history and what you would like to change. I explain how we work and answer questions, so you can decide whether to continue. No preparation is needed." },
+        { "q": "How long is a session, and how often?", "home": false, "a": "[E.g. 50 minutes, usually once a week.]" },
+        { "q": "Are sessions confidential?", "home": true, "a": "Yes, they are covered by professional confidentiality. The limited exceptions are set by law and professional ethics, such as a serious and immediate risk to life. For children and adolescents there are specific arrangements for informing parents, which we discuss from the start." },
+        { "q": "Do online sessions work?", "home": false, "a": "For many people they are a practical and suitable option. You need a quiet, private space and a stable connection. If they do not suit your situation, we will talk about it." },
+        { "q": "How do payment and cancellations work?", "home": false, "a": "[Payment methods, receipts, and how far in advance an appointment must be cancelled.]" }
+      ]
+    }
+  ],
+  "closing": "Have another question? [Get in touch](/en/appointment/)."
+}

@@ -1,0 +1,17 @@
+{
+  "meta_title": "Cognitive Behavioural Therapy (CBT) | Margarita Makri",
+  "meta_description": "What CBT is, what it aims to do, how we work, what research says and what to bear in mind.",
+  "title": "Cognitive Behavioural Therapy",
+  "lead": "CBT is based on the idea that our thoughts, feelings and behaviour influence one another.",
+  "sections": [
+    { "title": "What it is", "highlight": false, "body": "Cognitive Behavioural Therapy (CBT) is a structured form of psychotherapy with strong research support.\n\nWhen certain thoughts or habits become unhelpful, they can keep anxiety, sadness and other difficulties going. In therapy we explore these cycles together and try practical ways to change them." },
+    { "title": "What it aims to do", "highlight": false, "body": "- Identify thoughts and beliefs that make life harder and look at them more realistically.\n- Develop practical skills for managing emotions and stress.\n- Gradually approach situations we avoid because of fear or anxiety.\n- Set specific goals and track progress together.\n- Give you tools you can keep using after therapy ends." },
+    { "title": "How we work", "highlight": false, "body": "1. Initial assessment: understanding what troubles you and what you would like to change.\n2. Agreeing on goals and a plan together.\n3. Structured sessions with a clear focus and practical exercises.\n4. Exercises between sessions, so new skills are tried in everyday life.\n5. Regular review of progress and, towards the end, relapse prevention." },
+    { "title": "What research says", "highlight": false, "body": "Research reviews show that CBT has particularly strong support for anxiety disorders and good support for depression, in adults as well as in children and adolescents. Outcomes vary from person to person.\n\nSources: [Hofmann et al. (2012)](https://pmc.ncbi.nlm.nih.gov/articles/PMC3584580/), [NHS](https://www.nhs.uk/mental-health/talking-therapies-medicine-treatments/talking-therapies-and-counselling/cognitive-behavioural-therapy-cbt/)" },
+    { "title": "Compared with other approaches", "highlight": false, "body": "There is no single “best” psychotherapy for everyone. Studies comparing the main approaches often find similar outcomes. CBT's strengths are its structure, its focus on specific goals, its practical skills and, often, a shorter duration.\n\nOther approaches may suit people who want to explore their personal history in depth. We can talk about this at our first meeting." },
+    { "title": "Who it is for", "highlight": false, "body": "Adults, adolescents and children (with adapted techniques and parental involvement), as well as couples. Typical topics: anxiety, panic attacks, social anxiety, phobias, depression, stress, sleep problems, low self-esteem. Sometimes collaboration with a psychiatrist is needed." },
+    { "title": "What to bear in mind", "highlight": true, "body": "CBT asks for active participation and practice between sessions. When gradually facing fears or difficult thoughts, it is normal to feel temporary discomfort. Progress varies, and nobody can guarantee a specific outcome." }
+  ],
+  "cta_title": "Would you like to talk about it?",
+  "cta_text": "At our first meeting we will see together whether CBT fits what you are going through."
+}

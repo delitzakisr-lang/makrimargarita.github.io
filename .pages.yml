@@ -1,0 +1,353 @@
+# Pages CMS configuration (https://pagescms.org/docs/configuration/)
+# Every key of every content file must be listed here, otherwise the editor would drop it on save.
+# Text written [in brackets] shows highlighted on the site as "still to be written".
+
+media:
+  input: assets/img/uploads
+  output: /assets/img/uploads
+  categories: [image]
+
+content:
+  # ------------------------------------------------------------ articles
+  - name: blog-el
+    label: Άρθρα
+    type: collection
+    path: content/blog/el
+    format: json-frontmatter
+    delimiters: "---"
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, date, draft]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields: &article_fields
+      - name: title
+        label: Τίτλος
+        type: string
+        required: true
+      - name: slug
+        label: Διεύθυνση άρθρου
+        description: Μόνο λατινικά πεζά και παύλες, π.χ. agchos-stin-douleia. Δεν αλλάζει μετά τη δημοσίευση.
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: Μόνο λατινικά πεζά γράμματα, αριθμοί και παύλες
+      - name: date
+        label: Ημερομηνία
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: description
+        label: Σύντομη περιγραφή
+        description: Μία ή δύο προτάσεις. Εμφανίζεται στη λίστα άρθρων και στο Google.
+        type: text
+        required: true
+      - name: image
+        label: Εικόνα εξωφύλλου (προαιρετική)
+        description: Εμφανίζεται πάνω στο άρθρο και όταν το link μοιράζεται σε Viber ή Facebook.
+        type: image
+      - name: image_alt
+        label: Τι δείχνει η εικόνα
+        description: Μια σύντομη περιγραφή για όσους δεν βλέπουν την εικόνα (π.χ. «Ήρεμο δωμάτιο με φυτά»).
+        type: string
+      - name: draft
+        label: Πρόχειρο (δεν εμφανίζεται στο site)
+        type: boolean
+        default: true
+      - name: alt
+        label: Το ίδιο άρθρο στην άλλη γλώσσα (προαιρετικό)
+        description: Π.χ. /en/articles/first-session/ ή /arthra/proti-synedria/
+        type: string
+      - name: body
+        label: Κείμενο
+        type: rich-text
+        options:
+          format: markdown
+
+  - name: blog-en
+    label: Άρθρα στα αγγλικά
+    type: collection
+    path: content/blog/en
+    format: json-frontmatter
+    delimiters: "---"
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, date, draft]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields: *article_fields
+
+  # ------------------------------------------------------------ shared settings
+  - name: settings
+    label: Στοιχεία επικοινωνίας και φωτογραφίες
+    type: file
+    path: content/settings.json
+    format: json
+    fields:
+      - { name: public, label: Ορατό στο Google, description: "Τσεκάρετε το μόνο όταν όλα τα κείμενα είναι έτοιμα. Μέχρι τότε το Google δεν εμφανίζει το site στις αναζητήσεις.", type: boolean }
+      - { name: phone_display, label: Τηλέφωνο (όπως εμφανίζεται), type: string, required: true }
+      - { name: phone_display_intl, label: Τηλέφωνο για την αγγλική σελίδα (με +30), type: string, required: true }
+      - { name: phone_link, label: Τηλέφωνο για κλήση από κινητό, description: "Χωρίς κενά, με +30, π.χ. +302411811451", type: string, required: true }
+      - { name: email, label: Email, type: string, required: true }
+      - { name: maps_query, label: Διεύθυνση για τον χάρτη, type: string, required: true }
+      - { name: portrait, label: Φωτογραφία της Μαργαρίτας (κάθετη), type: image }
+      - { name: office_photo, label: Φωτογραφία του γραφείου (κάθετη), type: image }
+      - { name: web3forms_key, label: Κλειδί Web3Forms για τη φόρμα, description: "Από το web3forms.com. Όσο είναι κενό, στη θέση της φόρμας εμφανίζονται τηλέφωνο και email.", type: string }
+
+  # ------------------------------------------------------------ pages, Greek
+  - name: pages-el
+    label: Σελίδες
+    type: group
+    items:
+      - name: home-el
+        label: Αρχική
+        type: file
+        path: content/el/home.json
+        format: json
+        fields: &home_fields
+          - { name: meta_title, label: Τίτλος για το Google, type: string }
+          - { name: meta_description, label: Περιγραφή για το Google, type: text }
+          - { name: hero_text, label: Κείμενο κάτω από το όνομα, type: text }
+          - { name: welcome_title, label: Τίτλος καλωσορίσματος, type: string }
+          - { name: welcome_text, label: Κείμενο καλωσορίσματος, type: rich-text, options: { format: markdown } }
+          - { name: credentials, label: Σπουδές (σύντομη λίστα), type: string, list: true }
+          - { name: cv_link, label: Σύνδεσμος προς το βιογραφικό, type: string }
+          - { name: services_title, label: Τίτλος υπηρεσιών, type: string }
+          - { name: services_text, label: Κείμενο υπηρεσιών, type: string }
+          - { name: approach_words, label: Μεγάλες λέξεις δίπλα στην προσέγγιση, type: string, list: { min: 1, max: 4 } }
+          - { name: approach_title, label: Τίτλος προσέγγισης, type: string }
+          - { name: approach_text, label: Κείμενο προσέγγισης, type: text }
+          - { name: approach_link, label: Σύνδεσμος προς την προσέγγιση, type: string }
+          - { name: faq_title, label: Τίτλος ερωτήσεων, description: Οι ερωτήσεις έρχονται από τη σελίδα «Συχνές ερωτήσεις» (όσες έχουν τσεκαρισμένο το «Και στην αρχική»), type: string }
+          - { name: faq_link, label: Σύνδεσμος προς όλες τις ερωτήσεις, type: string }
+          - { name: contact_title, label: Τίτλος επικοινωνίας, type: string }
+          - { name: contact_sessions, label: Κείμενο για τις συνεδρίες, type: string }
+
+      - name: cv-el
+        label: Βιογραφικό
+        type: file
+        path: content/el/cv.json
+        format: json
+        fields: &cv_fields
+          - { name: meta_title, label: Τίτλος για το Google, type: string }
+          - { name: meta_description, label: Περιγραφή για το Google, type: text }
+          - { name: title, label: Τίτλος σελίδας, type: string }
+          - { name: lead, label: Εισαγωγή, type: text }
+          - { name: intro, label: Προσωπικά λόγια, type: rich-text, options: { format: markdown } }
+          - name: sections
+            label: Ενότητες
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{title}" }
+            fields:
+              - { name: title, label: Τίτλος ενότητας, type: string }
+              - { name: body, label: Κείμενο, type: rich-text, options: { format: markdown } }
+          - { name: cta_title, label: Τίτλος στο τέλος της σελίδας, type: string }
+          - { name: cta_text, label: Κείμενο στο τέλος της σελίδας, type: text }
+
+      - name: approach-el
+        label: Προσέγγιση
+        type: file
+        path: content/el/approach.json
+        format: json
+        fields: &approach_fields
+          - { name: meta_title, label: Τίτλος για το Google, type: string }
+          - { name: meta_description, label: Περιγραφή για το Google, type: text }
+          - { name: title, label: Τίτλος σελίδας, type: string }
+          - { name: lead, label: Εισαγωγή, type: text }
+          - name: sections
+            label: Ενότητες
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{title}" }
+            fields:
+              - { name: title, label: Τίτλος ενότητας, type: string }
+              - { name: highlight, label: Σε πλαίσιο, type: boolean }
+              - { name: body, label: Κείμενο, type: rich-text, options: { format: markdown } }
+          - { name: cta_title, label: Τίτλος στο τέλος της σελίδας, type: string }
+          - { name: cta_text, label: Κείμενο στο τέλος της σελίδας, type: text }
+
+      - name: services-el
+        label: Υπηρεσίες
+        type: file
+        path: content/el/services.json
+        format: json
+        fields: &services_fields
+          - { name: meta_title, label: Τίτλος για το Google, type: string }
+          - { name: meta_description, label: Περιγραφή για το Google, type: text }
+          - { name: title, label: Τίτλος σελίδας, type: string }
+          - { name: lead, label: Εισαγωγή, type: text }
+          - name: items
+            label: Υπηρεσίες
+            description: Η σειρά εδώ είναι και η σειρά στις κάρτες της αρχικής.
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{title}" }
+            fields:
+              - { name: title, label: Τίτλος, type: string, required: true }
+              - { name: short_title, label: Σύντομος τίτλος (για τα κουμπιά στην κορυφή), type: string }
+              - name: id
+                label: Κωδικός
+                description: Μόνο λατινικά πεζά και παύλες. Χρησιμοποιείται στους συνδέσμους, καλύτερα να μην αλλάζει.
+                type: string
+                required: true
+                pattern: { regex: "^[a-z0-9-]+$", message: "Μόνο λατινικά πεζά γράμματα, αριθμοί και παύλες" }
+              - { name: summary, label: Σύντομη περιγραφή (κάρτα στην αρχική), type: text }
+              - { name: lead, label: Εισαγωγή, type: text }
+              - { name: for_you_title, label: Τίτλος πρώτου πλαισίου, type: string }
+              - { name: for_you, label: Πρώτο πλαίσιο, type: rich-text, options: { format: markdown } }
+              - { name: how_title, label: Τίτλος δεύτερου πλαισίου, type: string }
+              - { name: how, label: Δεύτερο πλαίσιο, type: rich-text, options: { format: markdown } }
+              - { name: note, label: Σημείωση, type: rich-text, options: { format: markdown } }
+              - { name: highlight, label: Σημείωση σε πλαίσιο, type: boolean }
+          - { name: cta_title, label: Τίτλος στο τέλος της σελίδας, type: string }
+          - { name: cta_text, label: Κείμενο στο τέλος της σελίδας, type: text }
+
+      - name: faq-el
+        label: Συχνές ερωτήσεις
+        type: file
+        path: content/el/faq.json
+        format: json
+        fields: &faq_fields
+          - { name: meta_title, label: Τίτλος για το Google, type: string }
+          - { name: meta_description, label: Περιγραφή για το Google, type: text }
+          - { name: title, label: Τίτλος σελίδας, type: string }
+          - { name: lead, label: Εισαγωγή, type: text }
+          - name: groups
+            label: Ομάδες ερωτήσεων
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{title}" }
+            fields:
+              - { name: title, label: Τίτλος ομάδας, type: string }
+              - name: items
+                label: Ερωτήσεις
+                type: object
+                list:
+                  collapsible: { collapsed: true, summary: "{q}" }
+                fields:
+                  - { name: q, label: Ερώτηση, type: string }
+                  - { name: a, label: Απάντηση, type: rich-text, options: { format: markdown } }
+                  - { name: home, label: Και στην αρχική, type: boolean }
+          - { name: closing, label: Κείμενο στο τέλος, type: rich-text, options: { format: markdown } }
+
+      - name: booking-el
+        label: Κλείστε ραντεβού
+        type: file
+        path: content/el/booking.json
+        format: json
+        fields: &booking_fields
+          - { name: meta_title, label: Τίτλος για το Google, type: string }
+          - { name: meta_description, label: Περιγραφή για το Google, type: text }
+          - { name: title, label: Τίτλος σελίδας, type: string }
+          - { name: lead, label: Εισαγωγή, type: text }
+          - { name: hours, label: Ώρες, type: string }
+          - { name: form_title, label: Τίτλος φόρμας, type: string }
+          - { name: form_note, label: Σημείωση πάνω από τη φόρμα, type: text }
+          - { name: fallback, label: Κείμενο όταν η φόρμα δεν είναι ενεργή, type: text }
+
+      - name: privacy-el
+        label: Πολιτική απορρήτου
+        type: file
+        path: content/el/privacy.json
+        format: json
+        fields: &privacy_fields
+          - { name: meta_title, label: Τίτλος για το Google, type: string }
+          - { name: meta_description, label: Περιγραφή για το Google, type: text }
+          - { name: title, label: Τίτλος σελίδας, type: string }
+          - { name: lead, label: Εισαγωγή, type: text }
+          - { name: intro, label: Σημείωση, type: text }
+          - name: sections
+            label: Ενότητες
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{title}" }
+            fields:
+              - { name: title, label: Τίτλος ενότητας, type: string }
+              - { name: body, label: Κείμενο, type: rich-text, options: { format: markdown } }
+
+      - name: ui-el
+        label: Μενού, κουμπιά και μικρά κείμενα
+        type: file
+        path: content/el/ui.json
+        format: json
+        fields: &ui_fields
+          - { name: name, label: Όνομα, type: string }
+          - { name: role, label: Ιδιότητα, type: string }
+          - { name: address, label: Διεύθυνση, type: string }
+          - { name: portrait_alt, label: Περιγραφή φωτογραφίας πορτρέτου, type: string }
+          - { name: office_alt, label: Περιγραφή φωτογραφίας γραφείου, type: string }
+          - { name: skip, label: "Κρυφός σύνδεσμος «Μετάβαση στο περιεχόμενο»", type: string }
+          - { name: menu, label: Κουμπί μενού στο κινητό, type: string }
+          - { name: close, label: Κουμπί κλεισίματος μενού, type: string }
+          - { name: lang_short, label: Κουμπί άλλης γλώσσας (σύντομο), type: string }
+          - { name: lang_name, label: Όνομα άλλης γλώσσας, type: string }
+          - { name: nav_home, label: "Μενού: Αρχική", type: string }
+          - { name: nav_cv, label: "Μενού: Βιογραφικό", type: string }
+          - { name: nav_approach, label: "Μενού: Προσέγγιση", type: string }
+          - { name: nav_services, label: "Μενού: Υπηρεσίες", type: string }
+          - { name: nav_blog, label: "Μενού: Άρθρα", type: string }
+          - { name: nav_faq, label: "Μενού: Συχνές ερωτήσεις", type: string }
+          - { name: book, label: Κουμπί ραντεβού, type: string }
+          - { name: more, label: "Σύνδεσμος «Περισσότερα» στις κάρτες", type: string }
+          - { name: emergency, label: Σημείωση για επείγοντα (κάτω μέρος), type: text }
+          - { name: footer_text, label: Κείμενο στο κάτω μέρος, type: string }
+          - { name: footer_pages, label: "Κάτω μέρος: τίτλος σελίδων", type: string }
+          - { name: footer_contact, label: "Κάτω μέρος: τίτλος επικοινωνίας", type: string }
+          - { name: rights, label: Δικαιώματα, type: string }
+          - { name: privacy, label: Σύνδεσμος πολιτικής απορρήτου, type: string }
+          - { name: label_address, label: "Ετικέτα: Διεύθυνση", type: string }
+          - { name: label_phone, label: "Ετικέτα: Τηλέφωνο", type: string }
+          - { name: label_email, label: "Ετικέτα: Email", type: string }
+          - { name: label_sessions, label: "Ετικέτα: Συνεδρίες", type: string }
+          - { name: label_hours, label: "Ετικέτα: Ώρες", type: string }
+          - { name: map_note, label: "Χάρτης: σημείωση", type: string }
+          - { name: map_show, label: "Χάρτης: κουμπί εμφάνισης", type: string }
+          - { name: map_directions, label: "Χάρτης: κουμπί οδηγιών", type: string }
+          - { name: form_name, label: "Φόρμα: Ονοματεπώνυμο", type: string }
+          - { name: form_email, label: "Φόρμα: Email", type: string }
+          - { name: form_phone, label: "Φόρμα: Τηλέφωνο", type: string }
+          - { name: form_message, label: "Φόρμα: Μήνυμα", type: string }
+          - { name: form_consent, label: "Φόρμα: συναίνεση", type: text }
+          - { name: form_send, label: "Φόρμα: κουμπί αποστολής", type: string }
+          - { name: form_sending, label: "Φόρμα: ενώ στέλνεται", type: string }
+          - { name: form_success, label: "Φόρμα: επιτυχία", type: string }
+          - { name: form_failure, label: "Φόρμα: αποτυχία", type: string }
+          - { name: blog_meta_title, label: "Άρθρα: τίτλος για το Google", type: string }
+          - { name: blog_meta_description, label: "Άρθρα: περιγραφή για το Google", type: text }
+          - { name: blog_title, label: "Άρθρα: τίτλος σελίδας", type: string }
+          - { name: blog_lead, label: "Άρθρα: εισαγωγή", type: text }
+          - { name: blog_empty, label: "Άρθρα: όταν δεν υπάρχει κανένα", type: string }
+          - { name: blog_read, label: "Άρθρα: σύνδεσμος ανάγνωσης", type: string }
+          - { name: blog_minute, label: "Άρθρα: 1 λεπτό ανάγνωσης", type: string }
+          - { name: blog_minutes, label: "Άρθρα: λεπτά ανάγνωσης", type: string }
+          - { name: blog_back, label: "Άρθρα: όλα τα άρθρα", type: string }
+          - { name: blog_latest, label: "Άρθρα: τίτλος στην αρχική", type: string }
+          - { name: blog_disclaimer, label: "Άρθρα: σημείωση στο τέλος", type: text }
+          - { name: blog_cta_title, label: "Άρθρα: τίτλος στο τέλος", type: string }
+          - { name: blog_cta_text, label: "Άρθρα: κείμενο στο τέλος", type: text }
+          - { name: notfound_title, label: "Σελίδα που δεν βρέθηκε: τίτλος", type: string }
+          - { name: notfound_text, label: "Σελίδα που δεν βρέθηκε: κείμενο", type: string }
+          - { name: notfound_home, label: "Σελίδα που δεν βρέθηκε: κουμπί", type: string }
+
+  # ------------------------------------------------------------ pages, English
+  - name: pages-en
+    label: Σελίδες στα αγγλικά
+    type: group
+    items:
+      - { name: home-en, label: Αρχική (EN), type: file, path: content/en/home.json, format: json, fields: *home_fields }
+      - { name: cv-en, label: Βιογραφικό (EN), type: file, path: content/en/cv.json, format: json, fields: *cv_fields }
+      - { name: approach-en, label: Προσέγγιση (EN), type: file, path: content/en/approach.json, format: json, fields: *approach_fields }
+      - { name: services-en, label: Υπηρεσίες (EN), type: file, path: content/en/services.json, format: json, fields: *services_fields }
+      - { name: faq-en, label: Συχνές ερωτήσεις (EN), type: file, path: content/en/faq.json, format: json, fields: *faq_fields }
+      - { name: booking-en, label: Κλείστε ραντεβού (EN), type: file, path: content/en/booking.json, format: json, fields: *booking_fields }
+      - { name: privacy-en, label: Πολιτική απορρήτου (EN), type: file, path: content/en/privacy.json, format: json, fields: *privacy_fields }
+      - { name: ui-en, label: "Μενού, κουμπιά και μικρά κείμενα (EN)", type: file, path: content/en/ui.json, format: json, fields: *ui_fields }

@@ -1,0 +1,76 @@
+{
+  "meta_title": "Services | Margarita Makri, Psychologist in Larissa",
+  "meta_description": "Adult psychotherapy, couples therapy, children and adolescents, anxiety and panic attacks, depression and online sessions in Larissa, Greece.",
+  "title": "Services",
+  "lead": "Every therapy starts with an initial assessment and is tailored to you. In-person sessions in Larissa and online.",
+  "items": [
+    {
+      "id": "adults", "title": "Adult psychotherapy", "short_title": "Adults",
+      "summary": "Individual sessions for anxiety, stress, depression and difficult stages of life.",
+      "lead": "A safe and confidential space where we look together at what troubles you and work on it in practical ways.",
+      "for_you_title": "It may concern you if you",
+      "for_you": "- feel intense anxiety or stress\n- have low mood or have lost interest in things\n- are going through a major change or life crisis\n- want to change patterns that keep repeating",
+      "how_title": "How we work",
+      "how": "- initial assessment and shared goals\n- structured sessions with practical exercises\n- regular review of progress",
+      "note": "Pace and duration are tailored to you. No specific outcome is guaranteed, but there is a clear plan and real collaboration.",
+      "highlight": false
+    },
+    {
+      "id": "couples", "title": "Couples therapy", "short_title": "Couples",
+      "summary": "Better communication and ways through the difficulties in your relationship.",
+      "lead": "We work with both partners together, so you can understand the patterns that repeat and find new ways of communicating.",
+      "for_you_title": "It may concern you if you",
+      "for_you": "- have frequent conflicts or feel distant\n- are going through a transition, such as parenthood or a move\n- want to strengthen your relationship",
+      "how_title": "How we work",
+      "how": "- a joint meeting and agreed goals\n- practising communication skills\n- exercises between sessions",
+      "note": "Therapy does not take sides and cannot guarantee a specific outcome for the relationship.",
+      "highlight": false
+    },
+    {
+      "id": "children", "title": "Children and adolescents", "short_title": "Children and adolescents",
+      "summary": "Age-appropriate support, in collaboration with the family.",
+      "lead": "Children and adolescents express themselves differently from adults. Sessions are adapted to their age, with parents involved where needed.",
+      "for_you_title": "It may help if your child",
+      "for_you": "- has anxiety, fears or low mood\n- struggles at school or with friendships\n- shows changes in behaviour or sleep\n\nAnd if you, as parents, are looking for guidance.",
+      "how_title": "How we work",
+      "how": "- keeping parents informed and working with them\n- age-appropriate exercises\n- respect for the adolescent's privacy, within ethical limits",
+      "note": "Progress also depends on the family's consistency.",
+      "highlight": false
+    },
+    {
+      "id": "anxiety", "title": "Anxiety and panic attacks", "short_title": "Anxiety",
+      "summary": "Understanding and managing anxiety, panic and fears.",
+      "lead": "Anxiety is a normal response, but when it becomes intense or persistent it affects everyday life. We learn how it works and how to manage it.",
+      "for_you_title": "It may concern you if you",
+      "for_you": "- have panic attacks\n- worry excessively or have social anxiety\n- avoid situations because of fear",
+      "how_title": "How we work",
+      "how": "- learning how anxiety works\n- relaxation and thought-management techniques\n- gradual exposure to situations you avoid",
+      "note": "CBT has strong research support for anxiety, without guaranteeing the same result for everyone.",
+      "highlight": false
+    },
+    {
+      "id": "depression", "title": "Depression", "short_title": "Depression",
+      "summary": "Support through periods of low mood, fatigue and loss of interest.",
+      "lead": "Depression affects mood, thinking and behaviour. We identify the cycles that keep it going and take small, achievable steps towards change.",
+      "for_you_title": "It may concern you if you",
+      "for_you": "- feel persistent sadness or emptiness\n- have lost motivation or energy\n- have negative thoughts about yourself",
+      "how_title": "How we work",
+      "how": "- gradually returning to enjoyable and meaningful activities\n- examining negative thoughts\n- working with a psychiatrist where needed",
+      "note": "If you have thoughts of harming yourself, call [112](tel:112) or the Suicide Prevention Line [1018](tel:1018) immediately.",
+      "highlight": true
+    },
+    {
+      "id": "online", "title": "Online sessions", "short_title": "Online",
+      "summary": "From wherever you are, with the same structure and confidentiality.",
+      "lead": "Online sessions take place by video call and are a practical option if you cannot come to the office.",
+      "for_you_title": "It may suit you if you",
+      "for_you": "- live far away or travel often\n- have limited time\n- prefer the comfort of your own space",
+      "how_title": "What you need",
+      "how": "- a quiet, private space\n- a stable internet connection\n- the session link, which I send with your appointment [platform, e.g. Zoom or Google Meet]",
+      "note": "The framework and confidentiality are the same as in person. Online sessions are not suitable for emergencies.",
+      "highlight": false
+    }
+  ],
+  "cta_title": "Not sure what you need?",
+  "cta_text": "At our first meeting we will clarify together what troubles you and which way of working suits you."
+}
