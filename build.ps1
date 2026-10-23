@@ -14,6 +14,10 @@ $root = $PSScriptRoot
 $dist = Join-Path $root 'dist'
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $siteUrl = 'https://makrimargarita.gr'
+# While the site has no domain of its own, GitHub serves it from a subfolder
+# (e.g. /makrimargarita.github.io). The workflow passes that folder in BASE_PATH;
+# with the domain connected it is empty and links stay as they are.
+$base = ([string]$env:BASE_PATH).TrimEnd('/')
 
 $paths = @{
   el = @{ home = '/'; cv = '/viografiko/'; approach = '/proseggisi/'; services = '/ypiresies/'; blog = '/arthra/'; faq = '/syxnes-erotiseis/'; booking = '/rantevou/'; privacy = '/aporrito/' }
@@ -725,6 +729,7 @@ $sitemap = New-Object System.Collections.Generic.List[string]
 
 function Write-Page($lang, $U, $P, $meta, $body) {
   $html = Layout $lang $U $S $P $meta $body
+  if ($base) { $html = [regex]::Replace($html, '(href|src|data-src)="/(?!/)', "`$1=`"$base/") }
   if ($meta.path -eq '/404') {
     $out = Join-Path $dist '404.html'
   } else {
@@ -783,7 +788,12 @@ Get-ChildItem $dist -Recurse -Filter *.html | ForEach-Object { $pagesHtml[$_.Ful
 foreach ($file in $pagesHtml.Keys) {
   $from = '/' + $file.Substring($dist.Length + 1).Replace('\', '/') -replace 'index\.html$', ''
   foreach ($m in [regex]::Matches($pagesHtml[$file], '(?:href|src)="(/(?!/)[^"#?]*)(#[^"]*)?"')) {
-    $target = Join-Path $dist ([uri]::UnescapeDataString($m.Groups[1].Value.TrimStart('/')))
+    $rel = $m.Groups[1].Value
+    if ($base) {
+      if (-not $rel.StartsWith("$base/")) { $broken.Add("$from -> $rel (outside $base)"); continue }
+      $rel = $rel.Substring($base.Length)
+    }
+    $target = Join-Path $dist ([uri]::UnescapeDataString($rel.TrimStart('/')))
     $page = if (Test-Path $target -PathType Leaf) { $target } elseif (Test-Path (Join-Path $target 'index.html')) { Join-Path $target 'index.html' } else { $null }
     if (-not $page) { $broken.Add("$from -> $($m.Groups[1].Value)"); continue }
     $anchor = $m.Groups[2].Value.TrimStart('#')
