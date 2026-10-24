@@ -75,7 +75,8 @@ document.querySelectorAll('form[data-web3forms]').forEach((form) => {
 });
 
 // Home page quotes take turns every 6 seconds. They pause while the mouse or keyboard
-// focus is on them, the dots jump to a quote, and with "reduce motion" they stay still.
+// focus is on them and the dots jump to a quote. With "reduce motion" (common on Windows
+// with animation effects off) they still take turns, but switch without the fade (site.css).
 document.querySelectorAll('[data-quotes]').forEach((box) => {
   const items = [...box.querySelectorAll('.quote')];
   const dots = box.querySelector('.quote-dots');
@@ -99,9 +100,8 @@ document.querySelectorAll('[data-quotes]').forEach((box) => {
     items[current].classList.add('is-active');
     buttons[current].setAttribute('aria-current', 'true');
   }
-  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const stop = () => { clearInterval(timer); timer = null; };
-  const start = () => { if (!still && !timer) timer = setInterval(() => show(current + 1), 6000); };
+  const start = () => { if (!timer) timer = setInterval(() => show(current + 1), 6000); };
   box.addEventListener('mouseenter', stop);
   box.addEventListener('mouseleave', start);
   box.addEventListener('focusin', stop);
