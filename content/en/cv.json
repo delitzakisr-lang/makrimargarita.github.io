@@ -1,16 +1,10 @@
 {
   "meta_title": "About me | Margarita Makri, Psychologist in Larissa",
-  "meta_description": "Margarita Makri's background: Psychology at the Aristotle University of Thessaloniki, MSc in Clinical Mental Health, training in Cognitive Behavioural Therapy.",
+  "meta_description": "Margarita Makri's background: Psychology at the Aristotle University of Thessaloniki, master's degree in Clinical Mental Health, training in Cognitive Behavioural Therapy.",
   "title": "About me",
-  "lead": "I am a psychologist and psychotherapist trained in Cognitive Behavioural Therapy. I work with adults, couples and adolescents in Larissa and online.",
-  "intro": "[A few personal words: what led you to psychology and what characterises you as a therapist.]",
-  "sections": [
-    { "title": "Education", "body": "- BSc in Psychology, Aristotle University of Thessaloniki [year]\n- MSc in Clinical Mental Health, AUTh Medical School [year]" },
-    { "title": "Psychotherapy training", "body": "- Cognitive Behavioural Therapy (CBT) [training institute, years]" },
-    { "title": "Professional experience", "body": "[Positions, centres, hospitals or private practice, with dates.]" },
-    { "title": "Memberships", "body": "[Professional associations.]" },
-    { "title": "Further training", "body": "[Seminars, supervision, conferences.]" }
-  ],
+  "lead": "I am a psychologist and psychotherapist trained in Cognitive Behavioural Therapy. I work with adults, couples and adolescents, both in person and through online sessions.",
+  "intro": "I graduated from the School of Psychology of the Aristotle University of Thessaloniki and hold a master's degree in Clinical Mental Health from the School of Medicine of the Aristotle University of Thessaloniki. I completed my training in Cognitive Behavioural Therapy at the Hellenic Society for Behavioural Research, and I receive regular clinical supervision.\n\nI have worked at a rehabilitation centre and at a chronic pain clinic. Alongside my private practice, I collaborate with a haemodialysis unit and an oncology clinic, where I provide psychological support both to patients themselves and to their families.\n\nAs part of my ongoing professional development, I have attended numerous seminars on topics such as grief management, eating disorders, managing anxiety and depression, the transition to motherhood and aggression in adolescents, among others.",
+  "sections": [],
   "cta_title": "Let's meet",
   "cta_text": "Call me or send a message to arrange a first meeting."
 }
