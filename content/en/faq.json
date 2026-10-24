@@ -28,7 +28,7 @@
       "items": [
         { "q": "What is the first session like?", "home": true, "a": "It is an introduction. We talk about what brings you, your history and what you would like to change. I explain how we work and answer questions, so you can decide whether to continue. No preparation is needed." },
         { "q": "How long is a session, and how often?", "home": false, "a": "[E.g. 50 minutes, usually once a week.]" },
-        { "q": "Are sessions confidential?", "home": true, "a": "Yes, they are covered by professional confidentiality. The limited exceptions are set by law and professional ethics, such as a serious and immediate risk to life. For children and adolescents there are specific arrangements for informing parents, which we discuss from the start." },
+        { "q": "Are sessions confidential?", "home": true, "a": "Yes, they are covered by professional confidentiality. The limited exceptions are set by law and professional ethics, such as a serious and immediate risk to life. For adolescents there are specific arrangements for informing parents, which we discuss from the start." },
         { "q": "Do online sessions work?", "home": false, "a": "For many people they are a practical and suitable option. You need a quiet, private space and a stable connection. If they do not suit your situation, we will talk about it." },
         { "q": "How do payment and cancellations work?", "home": false, "a": "[Payment methods, receipts, and how far in advance an appointment must be cancelled.]" }
       ]

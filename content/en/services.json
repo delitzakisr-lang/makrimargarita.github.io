@@ -1,6 +1,6 @@
 {
   "meta_title": "Services | Margarita Makri, Psychologist in Larissa",
-  "meta_description": "Adult psychotherapy, couples therapy, children and adolescents, anxiety and panic attacks, depression and online sessions in Larissa, Greece.",
+  "meta_description": "Adult psychotherapy, couples therapy, adolescents, anxiety and panic attacks, depression and online sessions in Larissa, Greece.",
   "title": "Services",
   "lead": "Every therapy starts with an initial assessment and is tailored to you. In-person sessions in Larissa and online.",
   "items": [
@@ -27,10 +27,10 @@
       "highlight": false
     },
     {
-      "id": "children", "title": "Children and adolescents", "short_title": "Children and adolescents",
-      "summary": "Age-appropriate support, in collaboration with the family.",
-      "lead": "Children and adolescents express themselves differently from adults. Sessions are adapted to their age, with parents involved where needed.",
-      "for_you_title": "It may help if your child",
+      "id": "adolescents", "title": "Adolescents", "short_title": "Adolescents",
+      "summary": "Support for adolescents, adapted to their age, in collaboration with the family.",
+      "lead": "Adolescents express themselves differently from adults. Sessions are adapted to their age, with parents involved where needed.",
+      "for_you_title": "It may help if the adolescent",
       "for_you": "- has anxiety, fears or low mood\n- struggles at school or with friendships\n- shows changes in behaviour or sleep\n\nAnd if you, as parents, are looking for guidance.",
       "how_title": "How we work",
       "how": "- keeping parents informed and working with them\n- age-appropriate exercises\n- respect for the adolescent's privacy, within ethical limits",

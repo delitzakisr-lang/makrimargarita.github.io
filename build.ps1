@@ -354,7 +354,12 @@ $(MapBox $U $S)
 }
 
 function Page-Cv($lang, $C, $U, $S, $P) {
-  $sections = ($C.sections | ForEach-Object { Split $_.title (M $_.body) }) -join "`n"
+  # Optional headed sections under the text; left out entirely when there are none
+  $sections = ''
+  if (@($C.sections).Count) {
+    $sections = "    <section class=`"section section--tight`">`n      <div class=`"wrap`">`n" +
+      (($C.sections | ForEach-Object { Split $_.title (M $_.body) }) -join "`n") + "`n      </div>`n    </section>`n"
+  }
 @"
     <section class="page-head">
       <div class="wrap about">
@@ -367,12 +372,7 @@ $(M $C.intro)
       </div>
     </section>
 
-    <section class="section section--tight">
-      <div class="wrap">
 $sections
-      </div>
-    </section>
-
 $(Cta $C.cta_title $C.cta_text $U $P)
 "@
 }
