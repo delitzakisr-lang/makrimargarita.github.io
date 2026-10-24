@@ -208,6 +208,8 @@ content:
               - { name: how, label: Δεύτερο πλαίσιο, type: rich-text, options: { format: markdown } }
               - { name: note, label: Σημείωση, type: rich-text, options: { format: markdown } }
               - { name: highlight, label: Σημείωση σε πλαίσιο, type: boolean }
+          - { name: also_title, label: "Τίτλος ετικετών (π.χ. «Δουλεύω επίσης με:»)", type: string }
+          - { name: also, label: Θέματα σε ετικέτες, description: "Εμφανίζονται κάτω από τις υπηρεσίες, στην αρχική και στη σελίδα Υπηρεσίες. Χωρίς λεπτομέρειες, μόνο το όνομα.", type: string, list: true }
           - { name: cta_title, label: Τίτλος στο τέλος της σελίδας, type: string }
           - { name: cta_text, label: Κείμενο στο τέλος της σελίδας, type: text }
 

@@ -164,6 +164,14 @@ function MapBox($U, $S) {
 "@
 }
 
+# "I also work with:" followed by plain topic tags (no links, no details)
+function Topics($services) {
+  $items = @($services.also | Where-Object { $_ })
+  if (-not $items.Count) { return '' }
+  $tags = ($items | ForEach-Object { "<li>$(E $_)</li>" }) -join ''
+  "        <div class=`"topics`"><p class=`"topics-title`">$(E $services.also_title)</p><ul class=`"tags`">$tags</ul></div>"
+}
+
 function Split($title, $bodyHtml, [switch]$Highlight) {
   $cls = if ($Highlight) { 'note' } else { 'prose' }
 @"
@@ -308,6 +316,7 @@ $creds
         <div class="service-list">
 $cards
         </div>
+$(Topics $services)
       </div>
     </section>
 
@@ -432,6 +441,9 @@ $jump
 
     <div class="wrap">
 $blocks
+      <section class="service reveal">
+$(Topics $C)
+      </section>
     </div>
 
 $(Cta $C.cta_title $C.cta_text $U $P)
