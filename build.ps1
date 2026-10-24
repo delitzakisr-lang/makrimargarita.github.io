@@ -25,6 +25,16 @@ $paths = @{
 }
 $cultures = @{ el = 'el-GR'; en = 'en-GB' }
 
+# A short fingerprint of a file, added to its link (site.css?v=...) so browsers
+# fetch the new version right after a change instead of using a cached copy
+function Get-Version([string]$rel) {
+  $bytes = [IO.File]::ReadAllBytes((Join-Path $root $rel))
+  $sha = [Security.Cryptography.SHA256]::Create()
+  (-join ($sha.ComputeHash($bytes)[0..3] | ForEach-Object { $_.ToString('x2') }))
+}
+$cssVersion = Get-Version 'assets/site.css'
+$jsVersion = Get-Version 'assets/site.js'
+
 # ---------------------------------------------------------------- helpers
 
 function Read-Json([string]$rel) {
@@ -614,7 +624,20 @@ function Layout($lang, $U, $S, $P, $meta, $body) {
   $locale = if ($lang -eq 'el') { 'el_GR' } else { 'en_GB' }
   $nav = foreach ($k in 'home', 'cv', 'approach', 'services', 'blog', 'faq') {
     $cur = if ($meta.nav -eq $k) { ' aria-current="page"' } else { '' }
-    "        <a href=`"$($P[$k])`"$cur>$(E $U."nav_$k")</a>"
+    if ($k -eq 'services' -and $script:serviceItems[$lang]) {
+      # Services open a short list of every service on hover or keyboard focus
+      $sub = ($script:serviceItems[$lang] | ForEach-Object { "            <a href=`"$($P.services)#$($_.id)`">$(E $_.title)</a>" }) -join "`n"
+@"
+        <div class="nav-item has-sub">
+          <a href="$($P[$k])"$cur aria-haspopup="true">$(E $U."nav_$k")</a>
+          <div class="sub">
+$sub
+          </div>
+        </div>
+"@
+    } else {
+      "        <a href=`"$($P[$k])`"$cur>$(E $U."nav_$k")</a>"
+    }
   }
   $bookCur = if ($meta.nav -eq 'booking') { ' aria-current="page"' } else { '' }
   # Until the site is switched to public, search engines are asked not to list it
@@ -653,9 +676,9 @@ function Layout($lang, $U, $S, $P, $meta, $body) {
   <link rel="apple-touch-icon" href="/assets/img/icon-180.png">
   <link rel="preconnect" href="https://fonts.bunny.net">
   <link rel="stylesheet" href="https://fonts.bunny.net/css?family=commissioner:400,500,600|literata:400,400i,500&amp;display=swap">
-  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.css?v=$cssVersion">
   <script type="application/ld+json">$ld</script>
-  <script src="/assets/site.js" defer></script>
+  <script src="/assets/site.js?v=$jsVersion" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">$(E $U.skip)</a>
@@ -725,6 +748,7 @@ Copy-Item (Join-Path $root 'assets') (Join-Path $dist 'assets') -Recurse
 if (Test-Path (Join-Path $root 'public')) { Get-ChildItem (Join-Path $root 'public') -File | ForEach-Object { Copy-Item $_.FullName $dist } }
 
 $S = Read-Json 'content/settings.json'
+$script:serviceItems = @{}
 $sitemap = New-Object System.Collections.Generic.List[string]
 
 function Write-Page($lang, $U, $P, $meta, $body) {
@@ -748,6 +772,7 @@ foreach ($lang in 'el', 'en') {
   $U = Read-Json "content/$lang/ui.json"
   $C = @{}
   foreach ($name in 'home', 'cv', 'approach', 'services', 'faq', 'booking', 'privacy') { $C[$name] = Read-Json "content/$lang/$name.json" }
+  $script:serviceItems[$lang] = @($C.services.items)
 
   $articles = @()
   $blogDir = Join-Path $root "content/blog/$lang"
