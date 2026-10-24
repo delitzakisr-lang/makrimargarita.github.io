@@ -73,3 +73,39 @@ document.querySelectorAll('form[data-web3forms]').forEach((form) => {
     }
   });
 });
+
+// Home page quotes take turns every 6 seconds. They pause while the mouse or keyboard
+// focus is on them, the dots jump to a quote, and with "reduce motion" they stay still.
+document.querySelectorAll('[data-quotes]').forEach((box) => {
+  const items = [...box.querySelectorAll('.quote')];
+  const dots = box.querySelector('.quote-dots');
+  if (items.length < 2 || !dots) return;
+  let current = 0;
+  let timer = null;
+  const buttons = items.map((_, n) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', `${box.dataset.label} ${n + 1}`);
+    if (n === 0) b.setAttribute('aria-current', 'true');
+    // the pointer or focus is on the quotes while clicking, so rotation stays paused until it leaves
+    b.addEventListener('click', () => show(n));
+    dots.appendChild(b);
+    return b;
+  });
+  function show(n) {
+    items[current].classList.remove('is-active');
+    buttons[current].removeAttribute('aria-current');
+    current = (n + items.length) % items.length;
+    items[current].classList.add('is-active');
+    buttons[current].setAttribute('aria-current', 'true');
+  }
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stop = () => { clearInterval(timer); timer = null; };
+  const start = () => { if (!still && !timer) timer = setInterval(() => show(current + 1), 6000); };
+  box.addEventListener('mouseenter', stop);
+  box.addEventListener('mouseleave', start);
+  box.addEventListener('focusin', stop);
+  box.addEventListener('focusout', start);
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  start();
+});

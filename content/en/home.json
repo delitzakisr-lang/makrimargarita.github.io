@@ -10,6 +10,11 @@
     "Training in Cognitive Behavioural Therapy (CBT)"
   ],
   "cv_link": "Read more about me",
+  "quotes": [
+    { "text": "The universe is change; our life is what our thoughts make it.", "author": "Marcus Aurelius" },
+    { "text": "People are disturbed not by things, but by the views they take of them.", "author": "Epictetus" },
+    { "text": "Who looks outside, dreams; who looks inside, awakes.", "author": "Carl Jung" }
+  ],
   "services_title": "How I can help",
   "services_text": "Choose the topic that concerns you to see how we work.",
   "approach_words": ["Thoughts,", "feelings,", "behaviour."],

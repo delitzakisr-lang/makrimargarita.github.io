@@ -120,6 +120,15 @@ content:
           - { name: welcome_text, label: Κείμενο καλωσορίσματος, type: rich-text, options: { format: markdown } }
           - { name: credentials, label: Σπουδές (σύντομη λίστα), type: string, list: true }
           - { name: cv_link, label: Σύνδεσμος προς το βιογραφικό, type: string }
+          - name: quotes
+            label: Αποφθέγματα
+            description: Εναλλάσσονται αυτόματα ανά 6 δευτερόλεπτα, κάτω από το «Καλώς ήρθατε». Τα εισαγωγικά « » μπαίνουν αυτόματα.
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{author}" }
+            fields:
+              - { name: text, label: Απόφθεγμα, type: text }
+              - { name: author, label: Συγγραφέας, type: string }
           - { name: services_title, label: Τίτλος υπηρεσιών, type: string }
           - { name: services_text, label: Κείμενο υπηρεσιών, type: string }
           - { name: approach_words, label: Μεγάλες λέξεις δίπλα στην προσέγγιση, type: string, list: { min: 1, max: 4 } }
@@ -339,6 +348,7 @@ content:
           - { name: notfound_title, label: "Σελίδα που δεν βρέθηκε: τίτλος", type: string }
           - { name: notfound_text, label: "Σελίδα που δεν βρέθηκε: κείμενο", type: string }
           - { name: notfound_home, label: "Σελίδα που δεν βρέθηκε: κουμπί", type: string }
+          - { name: quote_label, label: "Αποφθέγματα: όνομα για αναγνώστες οθόνης", type: string }
 
   # ------------------------------------------------------------ pages, English
   - name: pages-en

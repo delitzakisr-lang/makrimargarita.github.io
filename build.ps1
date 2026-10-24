@@ -41,6 +41,10 @@ function Read-Json([string]$rel) {
   [IO.File]::ReadAllText((Join-Path $root $rel), $utf8) | ConvertFrom-Json
 }
 
+# Items of a list from the content. The editor removes a list key when it is emptied,
+# and piping $null would otherwise produce one empty item.
+function L($x) { @($x) | Where-Object { $null -ne $_ } }
+
 function E($s) { [System.Net.WebUtility]::HtmlEncode([string]$s) }
 
 # Inline Markdown on one line of text: images, links, bold, italic, and
@@ -74,9 +78,9 @@ function M($md) {
   $script:listTag = 'ul'
 
   $flush = {
-    if ($para.Count) { $out.Add('<p>' + (($para | ForEach-Object { I $_ }) -join ' ') + '</p>'); $para.Clear() }
-    if ($items.Count) { $out.Add("<$script:listTag>" + (($items | ForEach-Object { '<li>' + (I $_) + '</li>' }) -join '') + "</$script:listTag>"); $items.Clear() }
-    if ($quote.Count) { $out.Add('<blockquote><p>' + (($quote | ForEach-Object { I $_ }) -join ' ') + '</p></blockquote>'); $quote.Clear() }
+    if ($para.Count) { $out.Add('<p>' + (((L $para) | ForEach-Object { I $_ }) -join ' ') + '</p>'); $para.Clear() }
+    if ($items.Count) { $out.Add("<$script:listTag>" + (((L $items) | ForEach-Object { '<li>' + (I $_) + '</li>' }) -join '') + "</$script:listTag>"); $items.Clear() }
+    if ($quote.Count) { $out.Add('<blockquote><p>' + (((L $quote) | ForEach-Object { I $_ }) -join ' ') + '</p></blockquote>'); $quote.Clear() }
   }
 
   $lines = ([string]$md -replace "`r", '') -split "`n"
@@ -168,7 +172,7 @@ function MapBox($U, $S) {
 function Topics($services) {
   $items = @($services.also | Where-Object { $_ })
   if (-not $items.Count) { return '' }
-  $tags = ($items | ForEach-Object { "<li>$(E $_)</li>" }) -join ''
+  $tags = ((L $items) | ForEach-Object { "<li>$(E $_)</li>" }) -join ''
   "        <div class=`"topics`"><p class=`"topics-title`">$(E $services.also_title)</p><ul class=`"tags`">$tags</ul></div>"
 }
 
@@ -230,7 +234,7 @@ function ReadTime($a, $U) {
 }
 
 function ArticleCards($articles, $lang, $U) {
-  ($articles | ForEach-Object {
+  ((L $articles) | ForEach-Object {
 @"
           <article class="post-card">
             <p class="post-meta"><time datetime="$($_.DateText)">$(Format-Date $_.Date $lang)</time> | $(ReadTime $_ $U)</p>
@@ -245,8 +249,8 @@ function ArticleCards($articles, $lang, $U) {
 # ---------------------------------------------------------------- pages
 
 function Page-Home($lang, $C, $U, $S, $P, $services, $faq, $articles) {
-  $creds = ($C.credentials | ForEach-Object { "            <li>$(I $_)</li>" }) -join "`n"
-  $cards = ($services.items | ForEach-Object {
+  $creds = ((L $C.credentials) | ForEach-Object { "            <li>$(I $_)</li>" }) -join "`n"
+  $cards = ((L $services.items) | ForEach-Object {
 @"
           <a class="service-item" href="$($P.services)#$($_.id)">
             <h3>$(E $_.title)</h3>
@@ -255,8 +259,28 @@ function Page-Home($lang, $C, $U, $S, $P, $services, $faq, $articles) {
           </a>
 "@
   }) -join "`n"
-  $words = ($C.approach_words | ForEach-Object { "          <span>$(E $_)</span>" }) -join "`n"
-  $qa = ($faq.groups | ForEach-Object { $_.items } | Where-Object { $_.home } | ForEach-Object {
+  $words = ((L $C.approach_words) | ForEach-Object { "          <span>$(E $_)</span>" }) -join "`n"
+  # Quotes that take turns every few seconds (site.js); the first one shows without JavaScript
+  $quoteItems = @(L $C.quotes | Where-Object { $_.text })
+  $quotes = ''
+  if ($quoteItems.Count) {
+    $n = 0
+    $figs = ($quoteItems | ForEach-Object {
+      $active = if ($n -eq 0) { ' is-active' } else { '' }; $n++
+      "          <figure class=`"quote$active`"><blockquote><p>&laquo;$(E $_.text)&raquo;</p></blockquote><figcaption>$(E $_.author)</figcaption></figure>"
+    }) -join "`n"
+    $quotes = @"
+    <section class="quotes" aria-label="$(E $U.quote_label)">
+      <div class="wrap" data-quotes data-label="$(E $U.quote_label)">
+        <div class="quote-stack">
+$figs
+        </div>
+        <div class="quote-dots"></div>
+      </div>
+    </section>
+"@
+  }
+  $qa = ((L $faq.groups) | ForEach-Object { L $_.items } | Where-Object { $_.home } | ForEach-Object {
 @"
           <details class="qa">
             <summary>$(E $_.q)</summary>
@@ -306,6 +330,8 @@ $creds
         </div>
       </div>
     </section>
+
+$quotes
 
     <section class="section section--tint">
       <div class="wrap reveal">
@@ -364,10 +390,11 @@ $(MapBox $U $S)
 
 function Page-Cv($lang, $C, $U, $S, $P) {
   # Optional headed sections under the text; left out entirely when there are none
+  # The editor drops an empty list on save, so a missing "sections" key means none
   $sections = ''
-  if (@($C.sections).Count) {
+  if (@($C.sections | Where-Object { $_ }).Count) {
     $sections = "    <section class=`"section section--tight`">`n      <div class=`"wrap`">`n" +
-      (($C.sections | ForEach-Object { Split $_.title (M $_.body) }) -join "`n") + "`n      </div>`n    </section>`n"
+      (((L $C.sections) | ForEach-Object { Split $_.title (M $_.body) }) -join "`n") + "`n      </div>`n    </section>`n"
   }
 @"
     <section class="page-head">
@@ -387,7 +414,7 @@ $(Cta $C.cta_title $C.cta_text $U $P)
 }
 
 function Page-Approach($lang, $C, $U, $S, $P) {
-  $sections = ($C.sections | ForEach-Object { Split $_.title (M $_.body) -Highlight:([bool]$_.highlight) }) -join "`n"
+  $sections = ((L $C.sections) | ForEach-Object { Split $_.title (M $_.body) -Highlight:([bool]$_.highlight) }) -join "`n"
 @"
     <section class="page-head">
       <div class="wrap prose">
@@ -407,8 +434,8 @@ $(Cta $C.cta_title $C.cta_text $U $P)
 }
 
 function Page-Services($lang, $C, $U, $S, $P) {
-  $jump = ($C.items | ForEach-Object { "          <a href=`"#$($_.id)`">$(E $_.short_title)</a>" }) -join "`n"
-  $blocks = ($C.items | ForEach-Object {
+  $jump = ((L $C.items) | ForEach-Object { "          <a href=`"#$($_.id)`">$(E $_.short_title)</a>" }) -join "`n"
+  $blocks = ((L $C.items) | ForEach-Object {
     $noteCls = if ($_.highlight) { 'note' } else { 'muted prose' }
 @"
       <section class="service reveal" id="$($_.id)">
@@ -451,8 +478,8 @@ $(Cta $C.cta_title $C.cta_text $U $P)
 }
 
 function Page-Faq($lang, $C, $U, $S, $P) {
-  $groups = ($C.groups | ForEach-Object {
-    $items = ($_.items | ForEach-Object {
+  $groups = ((L $C.groups) | ForEach-Object {
+    $items = ((L $_.items) | ForEach-Object {
 @"
           <details class="qa">
             <summary>$(E $_.q)</summary>
@@ -551,7 +578,7 @@ $(MapBox $U $S)
 }
 
 function Page-Privacy($lang, $C, $U, $S, $P) {
-  $sections = ($C.sections | ForEach-Object { Split $_.title (M $_.body) }) -join "`n"
+  $sections = ((L $C.sections) | ForEach-Object { Split $_.title (M $_.body) }) -join "`n"
 @"
     <section class="page-head">
       <div class="wrap prose">
@@ -784,7 +811,7 @@ foreach ($lang in 'el', 'en') {
   $U = Read-Json "content/$lang/ui.json"
   $C = @{}
   foreach ($name in 'home', 'cv', 'approach', 'services', 'faq', 'booking', 'privacy') { $C[$name] = Read-Json "content/$lang/$name.json" }
-  $script:serviceItems[$lang] = @($C.services.items)
+  $script:serviceItems[$lang] = @(L $C.services.items)
 
   $articles = @()
   $blogDir = Join-Path $root "content/blog/$lang"
