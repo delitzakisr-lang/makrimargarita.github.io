@@ -248,7 +248,7 @@ function ArticleCards($articles, $lang, $U) {
 
 # ---------------------------------------------------------------- pages
 
-function Page-Home($lang, $C, $U, $S, $P, $services, $faq, $articles) {
+function Page-Home($lang, $C, $U, $S, $P, $services, $faq) {
   $creds = ((L $C.credentials) | ForEach-Object { "            <li>$(I $_)</li>" }) -join "`n"
   $cards = ((L $services.items) | ForEach-Object {
 @"
@@ -288,20 +288,6 @@ $figs
           </details>
 "@
   }) -join "`n"
-  $latest = ''
-  if ($articles.Count) {
-    $latest = @"
-    <section class="section">
-      <div class="wrap reveal">
-        <h2>$(E $U.blog_latest)</h2>
-        <div class="post-list post-list--home">
-$(ArticleCards ($articles | Select-Object -First 3) $lang $U)
-        </div>
-        <p style="margin-top: 32px;"><a class="link-arrow" href="$($P.blog)">$(E $U.blog_back)</a></p>
-      </div>
-    </section>
-"@
-  }
 @"
     <section class="hero">
       <div class="wrap">
@@ -359,7 +345,6 @@ $words
       </div>
     </section>
 
-$latest
     <section class="section">
       <div class="wrap reveal">
         <h2>$(I $C.faq_title)</h2>
@@ -821,7 +806,7 @@ foreach ($lang in 'el', 'en') {
   }
 
   $pages = [ordered]@{
-    home = Page-Home $lang $C.home $U $S $P $C.services $C.faq $articles
+    home = Page-Home $lang $C.home $U $S $P $C.services $C.faq
     cv = Page-Cv $lang $C.cv $U $S $P
     approach = Page-Approach $lang $C.approach $U $S $P
     services = Page-Services $lang $C.services $U $S $P
