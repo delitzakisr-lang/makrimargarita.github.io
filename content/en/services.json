@@ -1,6 +1,6 @@
 {
   "meta_title": "Services | Margarita Makri, Psychologist in Larissa",
-  "meta_description": "Adult psychotherapy, couples therapy, adolescents, anxiety and panic attacks, depression and online sessions in Larissa, Greece.",
+  "meta_description": "Adult psychotherapy, couples therapy, adolescents, anxiety and panic attacks, depression and eating disorders, in Larissa, Greece and online.",
   "title": "Services",
   "lead": "Every therapy starts with an initial assessment and is tailored to you. In-person sessions in Larissa and online.",
   "items": [
@@ -61,14 +61,14 @@
       "highlight": true
     },
     {
-      "id": "online", "title": "Online sessions", "short_title": "Online",
-      "summary": "From wherever you are, with the same structure and confidentiality.",
-      "lead": "Online sessions take place by video call and are a practical option if you cannot come to the office.",
-      "for_you_title": "It may suit you if you",
-      "for_you": "- live far away or travel often\n- have limited time\n- prefer the comfort of your own space",
-      "how_title": "What you need",
-      "how": "- a quiet, private space\n- a stable internet connection\n- the session link, which I send with your appointment [platform, e.g. Zoom or Google Meet]",
-      "note": "The framework and confidentiality are the same as in person. Online sessions are not suitable for emergencies.",
+      "id": "eating-disorders", "title": "Eating disorders", "short_title": "Eating disorders",
+      "summary": "Support when your relationship with food, your body and your self-image becomes difficult.",
+      "lead": "Eating disorders are not only about food, but also about how we think and feel about our body and ourselves. Together we understand what keeps the difficulty going and work step by step towards a more balanced relationship with food.",
+      "for_you_title": "It may concern you if you",
+      "for_you": "- are strongly preoccupied with weight, body shape or calories\n- follow strict diets or skip meals\n- have episodes of binge eating and feel you lose control\n- feel guilt or shame after eating",
+      "how_title": "How we work",
+      "how": "- understanding the cycle that keeps the difficulty going\n- gradually returning to a regular, balanced pattern of meals\n- working on thoughts about body, weight and self-esteem\n- working with a dietitian or doctor where needed",
+      "note": "Eating disorders can also affect physical health, so in some cases medical follow-up is needed alongside therapy.",
       "highlight": false
     }
   ],
