@@ -19,6 +19,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # A normal publish takes about a minute; never let a stuck step hold the site for hours
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       # Tells the build whether the site lives in a subfolder (no domain yet) or at the root
@@ -30,14 +32,24 @@ jobs:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: ./build.ps1
       # Photos straight from a phone are often 4-8 MB. Only the published copies are shrunk;
-      # the originals stay untouched in the repository. If this step fails the site still publishes.
+      # the originals stay untouched in the repository. The tool is installed only when a
+      # photo is actually large, and the step gives up after 3 minutes; either way the
+      # site still publishes.
       - name: Shrink uploaded photos
         continue-on-error: true
+        timeout-minutes: 3
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq imagemagick > /dev/null
           shopt -s nullglob nocaseglob
+          big=()
           for f in dist/assets/img/uploads/*.{jpg,jpeg,png,webp}; do
+            if [ "$(stat -c %s "$f")" -gt 400000 ]; then big+=("$f"); fi
+          done
+          if [ ${#big[@]} -eq 0 ]; then echo "No photo over 400 KB, nothing to shrink"; exit 0; fi
+          if ! command -v mogrify > /dev/null; then
+            sudo apt-get install -y -qq --no-install-recommends imagemagick > /dev/null \
+              || { sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends imagemagick > /dev/null; }
+          fi
+          for f in "${big[@]}"; do
             before=$(stat -c %s "$f")
             mogrify -auto-orient -resize '1600x1600>' -strip -quality 82 "$f"
             echo "$f: $before -> $(stat -c %s "$f") bytes"
