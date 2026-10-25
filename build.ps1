@@ -449,13 +449,13 @@ $(M $_.how)
 $jump
         </nav>
       </div>
+      <div class="wrap">
+$(Topics $C)
+      </div>
     </section>
 
     <div class="wrap">
 $blocks
-      <section class="service reveal">
-$(Topics $C)
-      </section>
     </div>
 
 $(Cta $C.cta_title $C.cta_text $U $P)
