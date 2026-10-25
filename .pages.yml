@@ -131,7 +131,7 @@ content:
               - { name: author, label: Συγγραφέας, type: string }
           - { name: services_title, label: Τίτλος υπηρεσιών, type: string }
           - { name: services_text, label: Κείμενο υπηρεσιών, type: string }
-          - { name: approach_words, label: Μεγάλες λέξεις δίπλα στην προσέγγιση, type: string, list: { min: 1, max: 4 } }
+          - { name: approach_words, label: Οι τρεις λέξεις του κύκλου, description: "Με τη σειρά: πάνω, κάτω αριστερά, κάτω δεξιά. Το «CBT» στο κέντρο μπαίνει αυτόματα.", type: string, list: { min: 3, max: 3 } }
           - { name: approach_title, label: Τίτλος προσέγγισης, type: string }
           - { name: approach_text, label: Κείμενο προσέγγισης, type: text }
           - { name: approach_link, label: Σύνδεσμος προς την προσέγγιση, type: string }

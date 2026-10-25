@@ -262,7 +262,34 @@ function Page-Home($lang, $C, $U, $S, $P, $services, $faq) {
           </a>
 "@
   }) -join "`n"
-  $words = ((L $C.approach_words) | ForEach-Object { "          <span>$(E $_)</span>" }) -join "`n"
+  # The CBT cycle: a ring with three arrows, the three words placed on it as text
+  # (so any length or language fits). Other word counts fall back to a plain list.
+  $wordItems = @(L $C.approach_words | ForEach-Object { ([string]$_).Trim().TrimEnd(',', '.', ';') } | Where-Object { $_ })
+  if ($wordItems.Count -eq 3) {
+    $words = @"
+        <figure class="cbt-cycle" aria-label="$(E ($wordItems -join ', '))">
+          <svg viewBox="0 0 480 440" aria-hidden="true" focusable="false">
+            <defs>
+              <marker id="cbt-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z"/>
+              </marker>
+            </defs>
+            <circle class="cbt-ring" cx="240" cy="225" r="150"/>
+            <g class="cbt-arrows" marker-end="url(#cbt-arrow)">
+              <path d="M318 99 A150 150 0 0 1 388 250"/>
+              <path d="M356 330 A150 150 0 0 1 124 330"/>
+              <path d="M92 250 A150 150 0 0 1 162 99"/>
+            </g>
+          </svg>
+          <span class="cbt-word cbt-word--top">$(E $wordItems[0])</span>
+          <span class="cbt-word cbt-word--right">$(E $wordItems[2])</span>
+          <span class="cbt-word cbt-word--left">$(E $wordItems[1])</span>
+          <span class="cbt-center" aria-hidden="true">CBT</span>
+        </figure>
+"@
+  } else {
+    $words = "        <p class=`"cbt-words`" aria-hidden=`"true`">`n" + (($wordItems | ForEach-Object { "          <span>$(E $_)</span>" }) -join "`n") + "`n        </p>"
+  }
   # Quotes that take turns every few seconds (site.js); the first one shows without JavaScript
   $quoteItems = @(L $C.quotes | Where-Object { $_.text })
   $quotes = ''
@@ -337,9 +364,7 @@ $(Topics $services)
 
     <section class="section">
       <div class="wrap cbt reveal">
-        <p class="cbt-words" aria-hidden="true">
 $words
-        </p>
         <div class="prose">
           <h2>$(I $C.approach_title)</h2>
           <p>$(I $C.approach_text)</p>
