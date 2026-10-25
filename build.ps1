@@ -480,7 +480,33 @@ $(M $_.how)
       </section>
 "@
   }) -join "`n"
+  # One ball of yarn: bands of strands wound in three directions, plus a loose end.
+  # Written out per ball (not <use>) so the page CSS colours every strand.
+  $yarn = { param($x, $y) @"
+        <g transform="translate($x $y)">
+          <circle class="yarn-body" r="22"/>
+          <g clip-path="url(#yarn-clip)">
+            <g transform="rotate(-28)"><path d="M-26 -14 C-9 -20 9 -20 26 -14"/><path d="M-26 -7 C-9 -13 9 -13 26 -7"/><path d="M-26 0 C-9 -6 9 -6 26 0"/><path d="M-26 7 C-9 1 9 1 26 7"/></g>
+            <g transform="rotate(62)"><path d="M-26 4 C-9 -1 9 -1 26 4"/><path d="M-26 11 C-9 6 9 6 26 11"/><path d="M-26 18 C-9 13 9 13 26 18"/></g>
+            <g transform="rotate(150)"><path d="M-26 -18 C-9 -23 9 -23 26 -18"/><path d="M-26 -12 C-9 -17 9 -17 26 -12"/></g>
+          </g>
+          <path d="M14 17 C22 24 30 24 36 22"/>
+        </g>
+"@ }
 @"
+    <div class="puzzle-bg" aria-hidden="true">
+      <!-- A tangle of thoughts on the left whose threads straighten out into three balls of yarn -->
+      <svg class="thread-art" viewBox="0 0 560 260" focusable="false">
+        <defs><clipPath id="yarn-clip"><circle r="22"/></clipPath></defs>
+        <path d="M70 140 C40 95 115 55 148 98 C176 134 102 178 78 134 C60 100 138 74 162 126 C180 166 92 196 66 156 C46 120 124 92 140 138 C152 172 96 168 100 126 C104 92 170 104 156 148 C144 186 70 176 58 132 C48 96 96 72 124 86"/>
+        <path d="M156 128 C230 96 290 140 350 110 C390 90 405 76 420 72"/>
+        <path d="M160 140 C240 150 300 128 370 148 C410 160 438 154 458 150"/>
+        <path d="M150 152 C220 196 300 170 350 200 C380 216 395 216 408 214"/>
+$(& $yarn 442 72)
+$(& $yarn 482 150)
+$(& $yarn 432 214)
+      </svg>
+    </div>
     <section class="page-head">
       <div class="wrap prose">
         <h1>$(I $C.title)</h1>
