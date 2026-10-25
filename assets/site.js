@@ -109,3 +109,14 @@ document.querySelectorAll('[data-quotes]').forEach((box) => {
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
   start();
 });
+// Article "copy link" button: copies the address and says so for two seconds
+document.querySelectorAll('[data-copy]').forEach((btn) => {
+  const label = btn.textContent;
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(btn.dataset.copy);
+      btn.textContent = btn.dataset.done;
+      setTimeout(() => { btn.textContent = label; }, 2000);
+    } catch (e) { /* clipboard blocked: the address is still in the browser bar */ }
+  });
+});

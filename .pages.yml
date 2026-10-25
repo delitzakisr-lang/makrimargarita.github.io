@@ -343,6 +343,9 @@ content:
           - { name: blog_minutes, label: "Άρθρα: λεπτά ανάγνωσης", type: string }
           - { name: blog_back, label: "Άρθρα: όλα τα άρθρα", type: string }
           - { name: blog_disclaimer, label: "Άρθρα: σημείωση στο τέλος", type: text }
+          - { name: share_title, label: "Άρθρα: τίτλος κουμπιών κοινοποίησης", type: string }
+          - { name: share_copy, label: "Άρθρα: κουμπί αντιγραφής συνδέσμου", type: string }
+          - { name: share_copied, label: "Άρθρα: μήνυμα μετά την αντιγραφή", type: string }
           - { name: blog_cta_title, label: "Άρθρα: τίτλος στο τέλος", type: string }
           - { name: blog_cta_text, label: "Άρθρα: κείμενο στο τέλος", type: text }
           - { name: notfound_title, label: "Σελίδα που δεν βρέθηκε: τίτλος", type: string }

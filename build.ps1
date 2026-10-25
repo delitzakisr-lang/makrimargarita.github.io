@@ -237,10 +237,13 @@ function ReadTime($a, $U) {
 }
 
 function ArticleCards($articles, $lang, $U) {
+  # The list shows no date (only the article page does); the cover, when there is one, becomes a thumbnail
   ((L $articles) | ForEach-Object {
+    $thumb = if ($_.Image) { "            <a class=`"post-thumb`" href=`"$($_.Path)`" aria-hidden=`"true`" tabindex=`"-1`"><img src=`"$(E $_.Image)`" alt=`"`" loading=`"lazy`"></a>`n" } else { '' }
+    $cls = if ($_.Image) { 'post-card post-card--thumb' } else { 'post-card' }
 @"
-          <article class="post-card">
-            <p class="post-meta"><time datetime="$($_.DateText)">$(Format-Date $_.Date $lang)</time> | $(ReadTime $_ $U)</p>
+          <article class="$cls">
+$thumb            <p class="post-meta">$(ReadTime $_ $U)</p>
             <h3><a href="$($_.Path)">$(E $_.Title)</a></h3>
             <p>$(E $_.Description)</p>
             <a class="link-arrow" href="$($_.Path)" aria-hidden="true" tabindex="-1">$(E $U.blog_read)</a>
@@ -667,6 +670,22 @@ $list
 
 function Page-Article($lang, $a, $U, $P) {
   $image = if ($a.Image) { "<figure class=`"post-cover`"><img src=`"$(E $a.Image)`" alt=`"$(E $a.ImageAlt)`" fetchpriority=`"high`"></figure>" } else { '' }
+  # Plain share links (no third-party scripts or tracking); "copy link" is handled in site.js
+  $url = [uri]::EscapeDataString("$siteUrl$($a.Path)")
+  $title = [uri]::EscapeDataString($a.Title)
+  $mailBody = [uri]::EscapeDataString("$($a.Description)`n`n$siteUrl$($a.Path)")
+  $share = @"
+        <div class="share">
+          <span class="share-label">$(E $U.share_title)</span>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=$url" target="_blank" rel="noopener">Facebook</a>
+          <a href="viber://forward?text=$title%20$url">Viber</a>
+          <a href="https://wa.me/?text=$title%20$url" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=$url" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://x.com/intent/post?url=$url&amp;text=$title" target="_blank" rel="noopener">X</a>
+          <a href="mailto:?subject=$title&amp;body=$mailBody">Email</a>
+          <button type="button" data-copy="$siteUrl$($a.Path)" data-done="$(E $U.share_copied)">$(E $U.share_copy)</button>
+        </div>
+"@
   $ld = '{"@context":"https://schema.org","@type":"BlogPosting","headline":' + (ConvertTo-Json $a.Title) +
     ',"datePublished":"' + $a.DateText + '","author":{"@type":"Person","name":' + (ConvertTo-Json ([string]$U.name)) + '},"inLanguage":"' + $lang + '"}'
 @"
@@ -683,6 +702,7 @@ function Page-Article($lang, $a, $U, $P) {
         <div class="post-body prose">
 $($a.Html)
         </div>
+$share
         <p class="post-disclaimer prose">$(E $U.blog_disclaimer)</p>
       </div>
     </article>

@@ -321,20 +321,26 @@ details.qa .answer { padding: 0 0 24px; max-width: 68ch; color: var(--muted); }
 /* Articles */
 .post-list { display: grid; }
 .post-card {
-  display: grid; grid-template-columns: 200px 1fr; column-gap: clamp(24px, 4vw, 56px);
+  display: grid; grid-template-columns: 1fr; column-gap: clamp(24px, 4vw, 56px);
   padding: 32px 0; border-top: 1px solid var(--line);
 }
-.post-card > * { grid-column: 2; }
-.post-card .post-meta { grid-column: 1; grid-row: 1 / span 3; margin: 6px 0 0; }
+.post-card--thumb { grid-template-columns: 220px 1fr; }
+.post-card--thumb > * { grid-column: 2; }
+.post-card .post-thumb {
+  grid-column: 1; grid-row: 1 / span 4; align-self: start;
+  border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 3; background: var(--tint);
+}
+.post-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.post-card .post-meta { margin: 0 0 8px; }
 .post-card h3 { font-size: clamp(1.3rem, 2.2vw, 1.6rem); margin-bottom: 8px; }
 .post-card h3 a { color: var(--ink); text-decoration: none; }
 .post-card h3 a:hover { color: var(--accent); }
 .post-card p { color: var(--muted); max-width: 62ch; margin-bottom: 12px; }
 .post-meta { font-size: 0.9rem; color: var(--muted); }
 @media (max-width: 720px) {
-  .post-card { grid-template-columns: 1fr; }
-  .post-card > *, .post-card .post-meta { grid-column: 1; grid-row: auto; }
-  .post-card .post-meta { margin-bottom: 8px; }
+  .post-card--thumb { grid-template-columns: 1fr; }
+  .post-card--thumb > *, .post-card .post-thumb { grid-column: 1; grid-row: auto; }
+  .post-card .post-thumb { margin-bottom: 16px; aspect-ratio: 16 / 9; }
 }
 
 .post-cover { margin: 0 0 48px; border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 9; background: var(--tint); }
@@ -347,6 +353,14 @@ details.qa .answer { padding: 0 0 24px; max-width: 68ch; color: var(--muted); }
 }
 .post-body figure { margin: 2em 0; }
 .post-body figure img { border-radius: var(--radius); }
+/* Share links at the end of an article */
+.share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; max-width: 72ch; padding: 8px 0 32px; }
+.share-label { font-weight: 500; margin-right: 4px; }
+.share a, .share button {
+  font: inherit; font-size: 0.9rem; color: var(--ink); background: transparent; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; text-decoration: none;
+}
+.share a:hover, .share button:hover { border-color: var(--accent); color: var(--accent); }
 .post-disclaimer { font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--line); padding: 20px 0 56px; }
 /* Photo sizes on the home page and about page */
 .hero .media--portrait { width: 100%; max-width: 420px; justify-self: end; }
