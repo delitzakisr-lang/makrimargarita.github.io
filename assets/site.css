@@ -433,3 +433,9 @@ details.qa .answer { padding: 0 0 24px; max-width: 68ch; color: var(--muted); }
 .cbt-center { position: absolute; left: 50%; top: 51%; transform: translate(-50%, -50%); font: 400 clamp(1.4rem, 4vw, 1.9rem)/1 var(--font-display); color: var(--accent); }
 @media (max-width: 820px) { .cbt-cycle { margin: 0 auto 8px; } }
 @media (max-width: 420px) { .cbt-word { padding: .4em .8em; } }
+/* Approach page: faint interlocking puzzle fixed behind the whole page. It sits below
+   the content (z-index -1); the page background is painted on the canvas, so it shows. */
+.puzzle-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; display: grid; place-items: center end; padding-right: 4vw; }
+.puzzle-bg .puzzle-art { width: min(820px, 90vw); height: auto; }
+.puzzle-art path { fill: var(--accent); fill-opacity: .035; stroke: var(--accent); stroke-opacity: .16; stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+@media (max-width: 720px) { .puzzle-bg { place-items: center; padding-right: 0; } }

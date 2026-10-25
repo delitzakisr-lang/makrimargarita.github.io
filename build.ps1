@@ -429,6 +429,17 @@ $(Cta $C.cta_title $C.cta_text $U $P)
 function Page-Approach($lang, $C, $U, $S, $P) {
   $sections = ((L $C.sections) | ForEach-Object { Split $_.title (M $_.body) -Highlight:([bool]$_.highlight) }) -join "`n"
 @"
+    <div class="puzzle-bg" aria-hidden="true">
+      <!-- Two interlocking puzzle pieces, fixed and faint behind the whole page; the right piece's hollow fits the left one's knob -->
+      <svg class="puzzle-art" viewBox="-20 -30 330 200" focusable="false">
+        <g transform="rotate(5 60 60)">
+          <path d="M0 0 H100 V38 C108 38 112 32 120 32 C132 32 138 42 138 50 C138 58 132 68 120 68 C112 68 108 62 100 62 V120 H0 Z"/>
+        </g>
+        <g transform="translate(168 6) rotate(-7 60 60)">
+          <path d="M0 0 H120 V120 H0 V62 C8 62 12 68 20 68 C32 68 38 58 38 50 C38 42 32 32 20 32 C12 32 8 38 0 38 Z"/>
+        </g>
+      </svg>
+    </div>
     <section class="page-head">
       <div class="wrap prose">
         <h1>$(I $C.title)</h1>
