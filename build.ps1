@@ -52,6 +52,8 @@ function E($s) { [System.Net.WebUtility]::HtmlEncode([string]$s) }
 function I($s) {
   # The online editor may write CommonMark escapes such as \[ or \*; read them as plain characters
   $s = [regex]::Replace([string]$s, '\\([\\`*_{}\[\]()#+\-.!>|~])', '$1')
+  # ...and HTML codes such as &nbsp; as the characters they stand for (re-escaped just below)
+  $s = [System.Net.WebUtility]::HtmlDecode($s)
   $s = E $s
   $s = [regex]::Replace($s, '&lt;br\s*/?&gt;', '<br>')
   $s = [regex]::Replace($s, '!\[([^\]]*)\]\(([^)\s]+)\)', '<img src="$2" alt="$1" loading="lazy">')
@@ -83,7 +85,8 @@ function M($md) {
     if ($quote.Count) { $out.Add('<blockquote><p>' + (((L $quote) | ForEach-Object { I $_ }) -join ' ') + '</p></blockquote>'); $quote.Clear() }
   }
 
-  $lines = ([string]$md -replace "`r", '') -split "`n"
+  # The online editor writes an empty line as &nbsp;; treat it as a plain space so the line counts as blank
+  $lines = ([string]$md -replace "`r", '' -replace '&nbsp;|&#160;', ' ') -split "`n"
   for ($i = 0; $i -lt $lines.Count; $i++) {
     $raw = $lines[$i]
     $line = $raw.TrimEnd()
@@ -436,6 +439,7 @@ $(M $_.for_you)
 $(M $_.how)
           </div>
         </div>
+        $(if ($_.extra) { "<div class=`"muted prose service-extra`">$(M $_.extra)</div>" })
         <div class="$noteCls">$(M $_.note)</div>
       </section>
 "@

@@ -215,6 +215,7 @@ content:
               - { name: for_you, label: Πρώτο πλαίσιο, type: rich-text, options: { format: markdown } }
               - { name: how_title, label: Τίτλος δεύτερου πλαισίου, type: string }
               - { name: how, label: Δεύτερο πλαίσιο, type: rich-text, options: { format: markdown } }
+              - { name: extra, label: Επιπλέον σημείωση (προαιρετική), description: "Εμφανίζεται πάνω από τη Σημείωση, με απλά γράμματα.", type: rich-text, options: { format: markdown } }
               - { name: note, label: Σημείωση, type: rich-text, options: { format: markdown } }
               - { name: highlight, label: Σημείωση σε πλαίσιο, type: boolean }
           - { name: also_title, label: "Τίτλος ετικετών (π.χ. «Δουλεύω επίσης με:»)", type: string }
